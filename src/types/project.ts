@@ -1,9 +1,3 @@
-export type ProjectMockupKind =
-  | "education"
-  | "analytics"
-  | "scheduling"
-  | "lab";
-
 export interface Project {
   id: string;
   number: string;
@@ -12,7 +6,11 @@ export interface Project {
   category: string;
   technologies: string[];
   featured: boolean;
-  image: ProjectMockupKind;
+  period: string;
+  overview: string;
+  contributions: { title: string; description: string }[];
+  metrics: { value: string; label: string }[];
+  modules: string[];
   href: string;
   liveUrl: string | null;
   githubUrl: string | null;

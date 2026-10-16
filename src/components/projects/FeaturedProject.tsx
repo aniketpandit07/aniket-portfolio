@@ -2,7 +2,8 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { ProjectMockup } from "@/components/projects/ProjectMockup";
+import Link from "next/link";
+import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import type { Project } from "@/types/project";
 
 export function FeaturedProject({ project }: { project: Project }) {
@@ -22,7 +23,7 @@ export function FeaturedProject({ project }: { project: Project }) {
           <div>
             <div className="flex items-center justify-between gap-5">
               <span className="font-mono text-label tracking-[0.15em] text-accent-primary">{project.number}</span>
-              <span className="font-mono text-label uppercase tracking-[0.11em] text-muted">Featured concept</span>
+              <span className="font-mono text-label uppercase tracking-[0.11em] text-muted">Featured project</span>
             </div>
             <p className="mt-6 font-mono text-label uppercase tracking-[0.11em] text-muted sm:mt-7 sm:tracking-[0.13em]">{project.category}</p>
             <h3 className="mt-3 font-display text-[clamp(1.65rem,7vw,3.65rem)] font-semibold leading-[1] tracking-[-0.05em] text-foreground sm:leading-[0.96] sm:tracking-[-0.055em]">
@@ -37,10 +38,10 @@ export function FeaturedProject({ project }: { project: Project }) {
                 <span className="rounded-full border border-line bg-background/45 px-3 py-1.5 font-mono text-label uppercase tracking-[0.07em] text-muted" key={technology}>{technology}</span>
               ))}
             </div>
-            <span className="mt-7 inline-flex items-center gap-2 font-mono text-label uppercase tracking-[0.11em] text-foreground">
-              Project overview
+            <Link href={project.href} className="min-h-11 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-accent-primary mt-7 inline-flex items-center gap-2 font-mono text-label uppercase tracking-[0.11em] text-foreground">
+              View project details
               <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-            </span>
+            </Link>
           </div>
         </div>
 
@@ -49,7 +50,7 @@ export function FeaturedProject({ project }: { project: Project }) {
           whileHover={reduceMotion ? undefined : { y: -4 }}
           transition={{ duration: 0.25 }}
         >
-          <ProjectMockup kind={project.image} />
+          <ProjectVisual project={project} />
         </motion.div>
       </div>
     </motion.article>

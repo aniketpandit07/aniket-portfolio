@@ -40,7 +40,7 @@ export function Expertise() {
               WHAT I DO<span className="text-accent-primary">.</span>
             </h2>
             <p className="mt-4 max-w-md text-body leading-6 text-foreground min-[360px]:mt-5 min-[360px]:leading-7 sm:mt-7 sm:text-lg sm:leading-8">
-              I build interfaces first, but I understand the systems behind them.
+              I build across the stack, from responsive interfaces to backend services, database schemas, and cloud deployment.
             </p>
 
             <div className="relative mt-6 border-l border-line/70 pl-4 min-[360px]:mt-7 min-[360px]:pl-5 sm:mt-9" aria-label="Capability layers">

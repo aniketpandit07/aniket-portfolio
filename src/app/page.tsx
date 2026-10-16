@@ -4,20 +4,26 @@ import { Expertise } from "@/components/sections/Expertise";
 import { Experience } from "@/components/sections/Experience";
 import { Hero } from "@/components/sections/Hero";
 import { SelectedWork } from "@/components/sections/SelectedWork";
-import { UiLab } from "@/components/sections/UiLab";
+import { getProjects } from "@/lib/data/projects";
 
-export default function Home() {
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+export default async function Home() {
+  const projects = await getProjects();
+
   return (
     <>
       <Navbar />
       <main>
         <Hero />
-        <SelectedWork />
+        <SelectedWork projects={projects} />
         <Expertise />
         <Experience />
-        <UiLab />
         <AboutContact />
       </main>
     </>
   );
 }
+import type { Metadata } from "next";

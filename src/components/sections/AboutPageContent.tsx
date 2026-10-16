@@ -2,6 +2,8 @@
 
 import { ArrowUpRight, Braces, ContactRound, Phone } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import Link from "next/link";
+import { externalLinks } from "@/data/external-links";
 import { Container } from "@/components/ui/container";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -9,29 +11,21 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const education = [
   {
     number: "01",
-    years: "2019 — 2023",
-    institution: "MBESociety’s College of Engineering",
+    years: "2019 - 2023",
+    institution: "MBE Society's College of Engineering",
     qualification: "Bachelor of Technology in Computer Science",
     location: "Ambajogai, Maharashtra",
     metricLabel: "GPA",
     metric: "8.27 / 10",
-    coursework: [
-      "Web Development",
-      "Data Structures & Algorithms (Java)",
-      "Computer Networks",
-      "Operating Systems",
-      "DBMS",
-    ],
   },
   {
     number: "02",
-    years: "2018 — 2019",
-    institution: "Yogeshwari Mahavidyalaya",
+    years: "2018 - 2019",
+    institution: "Yogeshwari Mahavidhyalaya Ambajogai",
     qualification: "Higher Secondary Certificate (HSC / 12th)",
     location: "Ambajogai, Maharashtra",
     metricLabel: "Percentage",
     metric: "65%",
-    coursework: ["Science"],
   },
 ] as const;
 
@@ -52,13 +46,13 @@ export function AboutContact() {
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
         >
           <div>
-            <div className="flex items-center gap-3 font-mono text-label uppercase tracking-[0.16em] text-muted"><span className="h-px w-8 bg-accent-primary" />07 / About</div>
+            <div className="flex items-center gap-3 font-mono text-label uppercase tracking-[0.16em] text-muted"><span className="h-px w-8 bg-accent-primary" />05 / About</div>
             <h2 className="mt-3 font-display text-section font-semibold leading-[0.92] tracking-[-0.055em] text-foreground min-[360px]:mt-4 sm:mt-5 sm:leading-[0.86] sm:tracking-[-0.07em]" id="about-title">
               BEYOND THE<br /><span className="text-muted">INTERFACE</span><span className="text-accent-primary">.</span>
             </h2>
           </div>
           <p className="max-w-lg text-sm leading-7 text-muted sm:text-base sm:leading-8 lg:pb-1">
-            Computer Science graduate with a focus on building thoughtful, production-ready digital experiences.
+            Computer Science graduate and Full Stack Developer working remotely at Sapthora. Alongside product development, I mentor junior developers and interns through knowledge transfer, technical guidance, and development best practices. Senior team members have recognized my ownership, on-time delivery, and attention to client requirements.
           </p>
         </motion.header>
         </Container>
@@ -119,16 +113,7 @@ export function AboutContact() {
                     </div>
                   </div>
 
-                  <div className="mt-6 border-t border-line/70 pt-4 min-[360px]:mt-8 min-[360px]:pt-5">
-                    <span className="font-mono text-label uppercase tracking-[0.12em] text-muted/70">Studied through</span>
-                    <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2" aria-label={`Relevant coursework at ${entry.institution}`}>
-                      {entry.coursework.map((course, courseIndex) => (
-                        <li className="flex items-center gap-4 font-mono text-label uppercase leading-5 tracking-[0.07em] text-muted" key={course}>
-                          {course}<span aria-hidden="true" className={`size-1 rounded-full ${courseIndex === entry.coursework.length - 1 ? "hidden" : "bg-line"}`} />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+
                 </motion.article>
               ))}
             </div>
@@ -136,7 +121,7 @@ export function AboutContact() {
         </Container>
       </section>
 
-      <section aria-labelledby="contact-title" className="relative border-t border-line/70 py-[var(--section-space)]" id="contact">
+      <section aria-labelledby="contact-title" className="relative overflow-hidden border-t border-line/70 py-[var(--section-space)]" id="contact">
         <div aria-hidden="true" className="pointer-events-none absolute right-0 top-20 size-96 translate-x-1/2 rounded-full bg-accent-primary/[0.045] blur-[120px]" />
         <Container className="relative">
           <motion.div
@@ -160,7 +145,7 @@ export function AboutContact() {
 
             <a
               className={`group mt-8 grid gap-4 border-y border-line/80 py-6 transition-[border-color,background-color] hover:border-accent-primary/60 hover:bg-accent-primary/[0.025] min-[360px]:mt-10 min-[360px]:gap-6 min-[360px]:py-7 sm:mt-14 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:py-9 ${focusStyles}`}
-              href="mailto:aniketpandit548@gmail.com"
+              href={externalLinks.email}
             >
               <div className="min-w-0">
                 <span className="font-mono text-label uppercase tracking-[0.12em] text-muted">Email</span>
@@ -170,7 +155,7 @@ export function AboutContact() {
             </a>
 
             <div className="grid border-b border-line/80 md:grid-cols-[1.1fr_0.9fr]">
-              <a className={`group flex min-h-24 items-center justify-between gap-4 border-b border-line/80 py-5 transition-colors hover:text-accent-highlight min-[360px]:min-h-28 min-[360px]:gap-5 min-[360px]:py-6 md:border-b-0 md:border-r md:pr-8 ${focusStyles}`} href="tel:+918975751690">
+              <a className={`group flex min-h-24 items-center justify-between gap-4 border-b border-line/80 py-5 transition-colors hover:text-accent-highlight min-[360px]:min-h-28 min-[360px]:gap-5 min-[360px]:py-6 md:border-b-0 md:border-r md:pr-8 ${focusStyles}`} href={externalLinks.phone}>
                 <div>
                   <span className="font-mono text-label uppercase tracking-[0.12em] text-muted">Phone</span>
                   <span className="mt-2 block font-display text-[clamp(1.2rem,6vw,2.4rem)] font-semibold tracking-[-0.04em] text-foreground decoration-accent-highlight/70 underline-offset-8 group-hover:underline">+91 8975751690</span>
@@ -179,11 +164,11 @@ export function AboutContact() {
               </a>
 
               <div className="grid grid-cols-2 md:pl-8">
-                <a aria-label="GitHub profile (opens in a new tab)" className={`group flex min-h-24 flex-col justify-center gap-2.5 border-r border-line/80 px-3 transition-colors hover:text-accent-secondary min-[360px]:min-h-28 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6 ${focusStyles}`} href="https://github.com/aniketpandit" rel="noopener noreferrer" target="_blank">
+                <a aria-label="GitHub profile (opens in a new tab)" className={`group flex min-h-24 flex-col justify-center gap-2.5 border-r border-line/80 px-3 transition-colors hover:text-accent-secondary min-[360px]:min-h-28 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6 ${focusStyles}`} href={externalLinks.github} rel="noopener noreferrer" target="_blank">
                   <Braces aria-hidden="true" className="size-4 text-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-secondary" />
                   <span className="font-mono text-label uppercase tracking-[0.12em] text-foreground">GitHub <ArrowUpRight aria-hidden="true" className="ml-1 inline size-3" /></span>
                 </a>
-                <a aria-label="LinkedIn profile (opens in a new tab)" className={`group flex min-h-24 flex-col justify-center gap-2.5 px-3 transition-colors hover:text-accent-primary min-[360px]:min-h-28 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6 ${focusStyles}`} href="https://linkedin.com/in/aniketpandit" rel="noopener noreferrer" target="_blank">
+                <a aria-label="LinkedIn profile (opens in a new tab)" className={`group flex min-h-24 flex-col justify-center gap-2.5 px-3 transition-colors hover:text-accent-primary min-[360px]:min-h-28 min-[360px]:gap-3 min-[360px]:px-4 sm:px-6 ${focusStyles}`} href={externalLinks.linkedin} rel="noopener noreferrer" target="_blank">
                   <ContactRound aria-hidden="true" className="size-4 text-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-primary" />
                   <span className="font-mono text-label uppercase tracking-[0.12em] text-foreground">LinkedIn <ArrowUpRight aria-hidden="true" className="ml-1 inline size-3" /></span>
                 </a>
@@ -202,7 +187,7 @@ export function AboutContact() {
       >
         <Container className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <p className="font-display text-[clamp(1.7rem,4vw,3.6rem)] font-semibold uppercase leading-[0.98] tracking-[-0.055em] text-foreground">Designed with intent.<br /><span className="text-muted">Built with code.</span></p>
-          <span className="font-display text-sm font-bold tracking-[-0.02em] text-foreground">ANIKET<span className="text-accent-primary">.</span></span>
+          <Link href="/#top" aria-label="Aniket Pandit - back to home" className="font-display text-sm font-bold tracking-[-0.02em] text-foreground">ANIKET<span className="text-accent-primary">.</span></Link>
         </Container>
       </motion.footer>
     </>

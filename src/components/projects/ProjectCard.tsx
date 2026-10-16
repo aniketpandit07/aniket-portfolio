@@ -2,7 +2,8 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { ProjectMockup } from "@/components/projects/ProjectMockup";
+import Link from "next/link";
+import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
@@ -28,7 +29,7 @@ export function ProjectCard({ project, className = "", index }: ProjectCardProps
         whileHover={reduceMotion ? undefined : { y: -3 }}
         transition={{ duration: 0.22 }}
       >
-        <ProjectMockup kind={project.image} />
+        <ProjectVisual project={project} />
       </motion.div>
 
       <div className="flex flex-1 flex-col px-1 pb-1 pt-5 sm:pt-6">
@@ -42,10 +43,10 @@ export function ProjectCard({ project, className = "", index }: ProjectCardProps
           <div className="flex flex-wrap gap-x-4 gap-y-2 border-t border-line/60 pt-4">
             {project.technologies.map((technology) => <span className="font-mono text-label uppercase tracking-[0.07em] text-muted" key={technology}>{technology}</span>)}
           </div>
-          <span className="mt-5 inline-flex items-center gap-2 font-mono text-label uppercase tracking-[0.1em] text-foreground">
-            Explore concept
+          <Link href={project.href} className="min-h-11 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-accent-primary mt-5 inline-flex items-center gap-2 font-mono text-label uppercase tracking-[0.1em] text-foreground">
+            View project details
             <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-          </span>
+          </Link>
         </div>
       </div>
     </motion.article>

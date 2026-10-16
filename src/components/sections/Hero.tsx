@@ -29,7 +29,7 @@ export function Hero() {
             transition={{ duration: reduceMotion ? 0 : 0.55, ease }}
           >
             <span className="h-px w-8 bg-accent-primary" />
-            Frontend / Full-stack developer
+            Full Stack Developer
           </motion.div>
 
           <h1 className="mt-4 overflow-hidden font-display text-display font-semibold leading-[0.87] tracking-[-0.055em] text-foreground min-[360px]:mt-5 sm:mt-6 sm:leading-[0.84] sm:tracking-[-0.065em]">
@@ -59,8 +59,8 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             transition={{ delay: reduceMotion ? 0 : 0.25, duration: reduceMotion ? 0 : 0.6, ease }}
           >
-            I build thoughtful digital interfaces and full-stack experiences with a focus on clean interaction,
-            responsive design, and real-world usability.
+            I’m a Full Stack Developer working remotely at Sapthora. I build responsive interfaces,
+            backend services, and database schemas, and ship products - from EdTech to multi-tenant business applications.
           </motion.p>
 
           <motion.div

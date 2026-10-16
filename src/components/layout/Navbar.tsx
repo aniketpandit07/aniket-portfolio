@@ -5,13 +5,12 @@ import { useLenis } from "lenis/react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 
 const links = [
   { label: "Work", href: "/#work", section: "work" },
   { label: "Expertise", href: "/#expertise", section: "expertise" },
   { label: "Experience", href: "/#experience", section: "experience" },
-  { label: "Lab", href: "/#ui-lab", section: "ui-lab" },
   { label: "About", href: "/#about", section: "about" },
   { label: "Contact", href: "/#contact", section: "contact" },
 ];
@@ -26,6 +25,8 @@ export function Navbar() {
   const reduceMotion = useReducedMotion();
   const pathname = usePathname();
   const lenis = useLenis();
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -47,17 +48,41 @@ export function Navbar() {
 
     const previousOverflow = document.body.style.overflow;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsMenuOpen(false);
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+      if (event.key === "Tab") {
+        const items = Array.from(headerRef.current?.querySelectorAll<HTMLElement>('a[href], button') ?? []).filter((item) => item.getClientRects().length > 0);
+        const first = items[0];
+        const last = items.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault(); last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first?.focus();
+        }
+      }
     };
 
     document.body.style.overflow = "hidden";
+    lenis?.stop();
+    const frame = requestAnimationFrame(() => document.querySelector<HTMLAnchorElement>('#mobile-navigation a')?.focus());
     window.addEventListener("keydown", closeOnEscape);
 
     return () => {
       document.body.style.overflow = previousOverflow;
+      cancelAnimationFrame(frame);
+      lenis?.start();
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, lenis]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => { if (desktop.matches) setIsMenuOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   useEffect(() => {
     if (pathname !== "/") {
@@ -83,14 +108,16 @@ export function Navbar() {
   }, [pathname]);
 
   function handleNavigation(event: MouseEvent<HTMLAnchorElement>, section: string) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    setIsMenuOpen(false);
     if (pathname !== "/") return;
     const target = document.getElementById(section);
     if (!target) return;
 
     event.preventDefault();
     setActiveSection(section);
-    setIsMenuOpen(false);
     if (lenis) {
+      lenis.start();
       lenis.scrollTo(target, {
         offset: -88,
         duration: reduceMotion ? 0 : 0.72,
@@ -108,7 +135,7 @@ export function Navbar() {
     const nextTheme: Theme = currentTheme === "dark" ? "light" : "dark";
     document.documentElement.classList.add("theme-transition");
     document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("portfolio-theme", nextTheme);
+    try { window.localStorage.setItem("portfolio-theme", nextTheme); } catch { /* Theme still works when storage is unavailable. */ }
     setTheme(nextTheme);
     window.setTimeout(() => document.documentElement.classList.remove("theme-transition"), 260);
   }
@@ -117,25 +144,25 @@ export function Navbar() {
   const themeLabel = resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-2.5 pt-2.5 min-[360px]:px-3 min-[360px]:pt-3 sm:px-6 sm:pt-5">
+    <header ref={headerRef} className="pointer-events-none fixed inset-x-0 top-0 z-50 px-2.5 pt-2.5 min-[360px]:px-3 min-[360px]:pt-3 sm:px-6 sm:pt-5">
       <motion.nav
         aria-label="Primary navigation"
-        className={`pointer-events-auto mx-auto flex max-w-[var(--container-max)] items-center justify-between rounded-full border px-3 transition-[background-color,border-color,box-shadow,padding] duration-300 sm:px-6 ${
+        className={`pointer-events-auto relative z-50 mx-auto flex max-w-[var(--container-max)] items-center justify-between gap-3 rounded-full border px-3 transition-[background-color,border-color,box-shadow,padding] duration-300 sm:px-6 ${
           isScrolled
             ? "border-line/70 bg-panel/80 py-2.5 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl"
             : "border-transparent bg-transparent py-3.5"
         }`}
-        layout
       >
         <Link
           className="relative z-50 font-display text-xs font-bold tracking-[-0.02em] text-foreground outline-none transition-colors hover:text-accent-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-accent-primary min-[360px]:text-sm"
-          href="/"
-          onClick={() => setIsMenuOpen(false)}
+          href="/#top"
+          aria-label="Aniket Pandit - home"
+          onClick={(event) => handleNavigation(event, "top")}
         >
           ANIKET<span className="text-accent-primary">.</span>
         </Link>
 
-        <div className="hidden items-center gap-4 lg:gap-6 md:flex">
+        <div className="hidden items-center gap-6 lg:flex">
           {links.map((link, index) => (
             <Link
               aria-current={activeSection === link.section ? "location" : undefined}
@@ -165,7 +192,8 @@ export function Navbar() {
             aria-controls="mobile-navigation"
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="flex min-h-9 min-w-12 items-center justify-center font-mono text-[0.58rem] uppercase tracking-[0.12em] text-foreground outline-none transition-colors hover:text-accent-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-accent-primary min-[360px]:min-h-10 min-[360px]:min-w-14 min-[360px]:text-[0.65rem] min-[360px]:tracking-[0.15em] md:hidden"
+            ref={menuButtonRef}
+            className="flex min-h-11 min-w-12 items-center justify-center font-mono text-[0.58rem] uppercase tracking-[0.12em] text-foreground outline-none transition-colors hover:text-accent-primary focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-accent-primary min-[360px]:min-w-14 min-[360px]:text-[0.65rem] min-[360px]:tracking-[0.15em] lg:hidden"
             onClick={() => setIsMenuOpen((open) => !open)}
             type="button"
           >
@@ -178,7 +206,9 @@ export function Navbar() {
         {isMenuOpen ? (
           <motion.div
             animate={{ opacity: 1 }}
-            className="pointer-events-auto fixed inset-0 z-40 flex bg-background/98 px-4 pb-6 pt-20 backdrop-blur-xl min-[360px]:px-6 min-[360px]:pb-8 min-[360px]:pt-24 md:hidden"
+            className="pointer-events-auto fixed inset-0 z-40 flex bg-background px-4 pb-6 pt-20 backdrop-blur-xl min-[360px]:px-6 min-[360px]:pb-8 min-[360px]:pt-24 lg:hidden"
+            data-lenis-prevent
+            aria-label="Mobile navigation"
             exit={{ opacity: 0 }}
             id="mobile-navigation"
             initial={{ opacity: 0 }}
@@ -207,7 +237,7 @@ export function Navbar() {
               </div>
 
               <p className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-muted">
-                Frontend / Full-stack developer
+                Full Stack Developer
               </p>
             </div>
           </motion.div>

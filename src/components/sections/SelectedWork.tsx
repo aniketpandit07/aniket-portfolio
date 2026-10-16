@@ -4,9 +4,9 @@ import { motion, useReducedMotion } from "motion/react";
 import { FeaturedProject } from "@/components/projects/FeaturedProject";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Container } from "@/components/ui/container";
-import { projects } from "@/data/projects";
+import type { Project } from "@/types/project";
 
-export function SelectedWork() {
+export function SelectedWork({ projects }: { projects: Project[] }) {
   const reduceMotion = useReducedMotion();
   const featuredProject = projects.find((project) => project.featured);
   const remainingProjects = projects.filter((project) => !project.featured);
@@ -35,12 +35,12 @@ export function SelectedWork() {
           </div>
           <div className="lg:pb-1">
             <p className="max-w-md text-sm leading-7 text-muted sm:text-base">
-              A selection of interfaces, products and experiments I&apos;ve worked on.
+              Two products I&apos;ve helped build: an EdTech platform and a multi-tenant business application.
             </p>
             <div className="mt-6 flex items-center gap-3" aria-hidden="true">
               <span className="h-px flex-1 bg-line" />
               <span className="size-1.5 rounded-full bg-accent-secondary" />
-              <span className="font-mono text-[0.5rem] tracking-[0.14em] text-muted">04 / ENTRIES</span>
+              <span className="font-mono text-[0.5rem] tracking-[0.14em] text-muted">{String(projects.length).padStart(2, "0")} / PROJECTS</span>
             </div>
           </div>
         </motion.div>
@@ -50,7 +50,7 @@ export function SelectedWork() {
         <div className="mt-4 grid gap-4 min-[360px]:mt-6 min-[360px]:gap-6 lg:grid-cols-12">
           {remainingProjects.map((project, index) => (
             <ProjectCard
-              className={index === 0 ? "lg:col-span-7" : index === 1 ? "lg:col-span-5" : "lg:col-span-12 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:gap-6"}
+              className="lg:col-span-12 lg:grid lg:grid-cols-[1fr_1fr] lg:gap-8"
               index={index}
               key={project.id}
               project={project}
@@ -58,9 +58,7 @@ export function SelectedWork() {
           ))}
         </div>
 
-        <p className="mt-7 max-w-2xl font-mono text-[0.625rem] uppercase leading-5 tracking-[0.07em] text-muted/70">
-          Portfolio concepts shown for interface demonstration. Project details and real screenshots can be added as case studies evolve.
-        </p>
+
       </Container>
     </section>
   );

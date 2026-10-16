@@ -10,20 +10,20 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const productAreas = [
   {
-    name: "Enrollment",
-    description: "Parents move from selecting a course and schedule to creating an enrollment.",
+    name: "Credits",
+    description: "Credit management supports core learning and administrative workflows.",
     position: "left-[4%] top-[8%]",
     anchor: { x1: 122, y1: 72, x2: 282, y2: 205 },
   },
   {
-    name: "Courses",
-    description: "Course choices connect the learning experience to enrollment and scheduling.",
+    name: "Reporting",
+    description: "Reporting brings platform information into connected administrative workflows.",
     position: "right-[2%] top-[15%]",
     anchor: { x1: 518, y1: 103, x2: 362, y2: 205 },
   },
   {
-    name: "Scheduling",
-    description: "Class timing and teacher availability become part of the application workflow.",
+    name: "Notifications",
+    description: "Notifications keep users informed as platform workflows progress.",
     position: "right-0 top-[48%]",
     anchor: { x1: 530, y1: 244, x2: 388, y2: 244 },
   },
@@ -34,14 +34,14 @@ const productAreas = [
     anchor: { x1: 505, y1: 410, x2: 362, y2: 284 },
   },
   {
-    name: "Users & roles",
-    description: "Students, parents and teachers interact through role-specific experiences.",
+    name: "Real-time chat",
+    description: "Real-time chat supports communication within the EdTech platform.",
     position: "left-[7%] bottom-[4%]",
     anchor: { x1: 126, y1: 423, x2: 282, y2: 284 },
   },
   {
-    name: "Support",
-    description: "Support workflows connect operational needs with the application experience.",
+    name: "Support tickets",
+    description: "Ticket management connects support requests to platform operations.",
     position: "left-0 top-[48%]",
     anchor: { x1: 102, y1: 244, x2: 256, y2: 244 },
   },
@@ -51,17 +51,22 @@ const responsibilities = [
   {
     number: "01",
     title: "Interface development",
-    description: "Building responsive application screens, reusable components and user-facing workflows.",
+    description: "Built responsive interfaces and integrated RESTful APIs across learning and administrative workflows.",
   },
   {
     number: "02",
-    title: "Product workflows",
-    description: "Connecting interfaces with APIs and application logic to make real workflows functional.",
+    title: "Backend development",
+    description: "Developed backend functionality with Java and Spring Boot and integrated RESTful APIs to support core learning and administrative workflows.",
   },
   {
     number: "03",
-    title: "Production collaboration",
-    description: "Working across frontend, backend and cloud-connected parts during ongoing product development.",
+    title: "Database design",
+    description: "Designed MySQL schemas for most modules and handled database relationships as part of delivering 35+ production-ready features end to end.",
+  },
+  {
+    number: "04",
+    title: "Release management",
+    description: "Managed development, staging, and production deployments using AWS, Docker, Jenkins, and CI/CD pipelines.",
   },
 ] as const;
 
@@ -152,13 +157,13 @@ export function Experience() {
           </div>
           <div className="max-w-lg lg:pb-1">
             <p className="text-sm leading-7 text-muted sm:text-base sm:leading-8">
-              Real product work is more than building screens. It is understanding how interfaces, workflows and people connect.
+              Full Stack Developer at Sapthora · Remote · August 2025-Present. From migrating a WordPress website to shipping connected application workflows.
             </p>
-            <div className="mt-6 flex items-end gap-3 border-t border-line/70 pt-4 min-[360px]:mt-7 min-[360px]:gap-4 min-[360px]:pt-5" aria-label="More than one year building UI flows at Sapthora">
-              <strong className="font-display text-[clamp(2.8rem,6vw,5.25rem)] font-semibold leading-[0.78] tracking-[-0.075em] text-foreground">1+</strong>
+            <div className="mt-6 flex items-end gap-3 border-t border-line/70 pt-4 min-[360px]:mt-7 min-[360px]:gap-4 min-[360px]:pt-5" aria-label="35 plus production-ready features delivered at Sapthora">
+              <strong className="font-display text-[clamp(2.8rem,6vw,5.25rem)] font-semibold leading-[0.78] tracking-[-0.075em] text-foreground">35+</strong>
               <div className="pb-0.5">
-                <span className="block font-mono text-label uppercase tracking-[0.13em] text-accent-secondary">Year of experience</span>
-                <span className="mt-1.5 block font-mono text-label uppercase leading-4 tracking-[0.09em] text-muted">Building UI flows at Sapthora</span>
+                <span className="block font-mono text-label uppercase tracking-[0.13em] text-accent-secondary">Production-ready features</span>
+                <span className="mt-1.5 block font-mono text-label uppercase leading-4 tracking-[0.09em] text-muted">Delivered end to end at Sapthora</span>
               </div>
             </div>
           </div>
@@ -230,7 +235,7 @@ export function Experience() {
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
-          <div className="mt-8 grid border-t border-line/70 md:grid-cols-3">
+          <div className="mt-8 grid border-t border-line/70 md:grid-cols-2 xl:grid-cols-4">
             {responsibilities.map((item, index) => (
               <motion.article
                 className={`border-b border-line/70 py-6 md:border-b-0 md:px-6 md:py-6 ${index > 0 ? "md:border-l" : "md:pl-0"}`}

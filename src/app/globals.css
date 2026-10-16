@@ -85,6 +85,7 @@
 }
 
 html {
+  overflow-x: clip;
   background: var(--color-bg);
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
@@ -101,7 +102,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color var(--transition-base) ease, color var(--transition-base) ease;
 }
 
@@ -161,7 +162,20 @@ select {
 }
 
 :where(a, button):focus-visible {
+  outline: 2px solid var(--color-primary);
   outline-offset: 0.2rem;
+}
+
+:where(a, button) {
+  scroll-margin-block: 7rem;
+}
+
+:where(main, section, article, .grid > *, .flex > *) {
+  min-width: 0;
+}
+
+:where(h1, h2, h3, p) {
+  overflow-wrap: break-word;
 }
 
 @media (max-width: 479px) {

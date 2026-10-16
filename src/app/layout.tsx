@@ -29,9 +29,21 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aniket Pandit — Frontend & Full-Stack Developer",
+  metadataBase: new URL("https://aniket-pandit-portfolio.vercel.app"),
+  title: {
+    default: "Aniket Pandit - Full Stack Developer",
+    template: "%s | Aniket Pandit",
+  },
   description:
-    "Personal portfolio of Aniket Pandit, a frontend-focused full-stack developer building modern, responsive and interactive web experiences.",
+    "Aniket Pandit, Full Stack Developer working remotely at Sapthora. Explore Sapthora and OnePlatify, built with React, TypeScript, Next.js, Spring Boot, and AWS.",
+  authors: [{ name: "Aniket Pandit" }],
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Aniket Pandit",
+    title: "Aniket Pandit - Full Stack Developer",
+    description: "Full Stack Developer at Sapthora. Explore my work on EdTech and multi-tenant business applications.",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
